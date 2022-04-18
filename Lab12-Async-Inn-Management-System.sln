@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab12-Async-Inn-Management-System", "Lab12-Async-Inn-Management-System\Lab12-Async-Inn-Management-System.csproj", "{BEF9E2A9-167F-4583-88B8-B35820D64329}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEF9E2A9-167F-4583-88B8-B35820D64329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEF9E2A9-167F-4583-88B8-B35820D64329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEF9E2A9-167F-4583-88B8-B35820D64329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEF9E2A9-167F-4583-88B8-B35820D64329}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {31CF5D2B-B307-44CF-A8B3-62ECF3E99780}
+	EndGlobalSection
+EndGlobal
