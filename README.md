@@ -5,7 +5,7 @@ Bulding a RESTful API hotel server that will increase the managmement of the ass
 Increatse the ability to modify and manage rooms, amenities, and new hotel locations built.
 
 ## ERD
-![image](images\ERD.png)
+![image](\images\ERD.png)
 
 **Explanation**
 
