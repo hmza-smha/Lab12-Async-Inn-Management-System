@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab12_Async_Inn_Management_System.Data;
 using Lab12_Async_Inn_Management_System.Models;
+using Lab12_Async_Inn_Management_System.Models.Interfaces;
 
 namespace Lab12_Async_Inn_Management_System.Controllers
 {
@@ -14,32 +15,27 @@ namespace Lab12_Async_Inn_Management_System.Controllers
     [ApiController]
     public class AmenitiesController : ControllerBase
     {
-        private readonly AsyncInnDbContext _context;
+        private readonly IAmenity _amenity;
 
-        public AmenitiesController(AsyncInnDbContext context)
+        public AmenitiesController(IAmenity amenity)
         {
-            _context = context;
+            _amenity = amenity;
         }
 
         // GET: api/Amenities
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenities()
         {
-            return await _context.Amenities.ToListAsync();
+            var aminities =  await _amenity.GetAmenities();
+            return Ok(aminities);
         }
 
         // GET: api/Amenities/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Amenity>> GetAmenity(int id)
         {
-            var amenity = await _context.Amenities.FindAsync(id);
-
-            if (amenity == null)
-            {
-                return NotFound();
-            }
-
-            return amenity;
+            var amenity = await _amenity.GetAmenity(id);
+            return Ok(amenity);
         }
 
         // PUT: api/Amenities/5
@@ -52,25 +48,8 @@ namespace Lab12_Async_Inn_Management_System.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(amenity).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AmenityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            var modifiedAmenity = await _amenity.UpdateAmenity(id, amenity);
+            return Ok(modifiedAmenity);
         }
 
         // POST: api/Amenities
@@ -78,31 +57,21 @@ namespace Lab12_Async_Inn_Management_System.Controllers
         [HttpPost]
         public async Task<ActionResult<Amenity>> PostAmenity(Amenity amenity)
         {
-            _context.Amenities.Add(amenity);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAmenity", new { id = amenity.Id }, amenity);
+            var newAmenity = await _amenity.Create(amenity);
+            return Ok(newAmenity);
         }
 
         // DELETE: api/Amenities/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAmenity(int id)
         {
-            var amenity = await _context.Amenities.FindAsync(id);
-            if (amenity == null)
-            {
-                return NotFound();
-            }
-
-            _context.Amenities.Remove(amenity);
-            await _context.SaveChangesAsync();
-
+            await _amenity.Delete(id);
             return NoContent();
         }
 
-        private bool AmenityExists(int id)
-        {
-            return _context.Amenities.Any(e => e.Id == id);
-        }
+        //private bool AmenityExists(int id)
+        //{
+        //    return _context.Amenities.Any(e => e.Id == id);
+        //}
     }
 }

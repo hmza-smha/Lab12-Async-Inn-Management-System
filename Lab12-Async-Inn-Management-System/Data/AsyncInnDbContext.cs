@@ -31,9 +31,9 @@ namespace Lab12_Async_Inn_Management_System.Data
             );
 
             modelBuilder.Entity<Amenity>().HasData(
-              new Amenity { Id = 1, Name = "Amenity 1" },
-              new Amenity { Id = 2, Name = "Amenity 2" },
-              new Amenity { Id = 3, Name = "Amenity 3" }
+              new Amenity { Id = 1, Name = "TV" },
+              new Amenity { Id = 2, Name = "Cofee Machine" },
+              new Amenity { Id = 3, Name = "Ocean View" }
             );
         }
 
