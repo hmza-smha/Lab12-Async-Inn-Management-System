@@ -1,4 +1,6 @@
 using Lab12_Async_Inn_Management_System.Data;
+using Lab12_Async_Inn_Management_System.Models.Interfaces;
+using Lab12_Async_Inn_Management_System.Models.Interfaces.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +31,12 @@ namespace Lab12_Async_Inn_Management_System
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // Register the Services
+            services.AddTransient<IRoom, RoomRepository>();
+            services.AddTransient<IHotel, HotelRepository>();
+            services.AddTransient<IAmenity, AmenityRepository>();
+
 
             // Register our DbContext with the app within ConfigureServices()
             // services.AddDbContext() is called as a generic with our DbContext as the type
