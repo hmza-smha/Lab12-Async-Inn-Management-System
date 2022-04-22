@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab12_Async_Inn_Management_System.Migrations
 {
     [DbContext(typeof(AsyncInnDbContext))]
-    [Migration("20220422120551_Update-Amenity-Data")]
-    partial class UpdateAmenityData
+    [Migration("20220422230505_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -114,6 +114,24 @@ namespace Lab12_Async_Inn_Management_System.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Lab12_Async_Inn_Management_System.Models.HotelRoom", b =>
+                {
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("HotelId", "RoomId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("HotelRooms");
+                });
+
             modelBuilder.Entity("Lab12_Async_Inn_Management_System.Models.Room", b =>
                 {
                     b.Property<int>("Id")
@@ -150,6 +168,76 @@ namespace Lab12_Async_Inn_Management_System.Migrations
                             Layout = 3,
                             Name = "Room 3"
                         });
+                });
+
+            modelBuilder.Entity("Lab12_Async_Inn_Management_System.Models.RoomAmenity", b =>
+                {
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AmenityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoomId", "AmenityId");
+
+                    b.HasIndex("AmenityId");
+
+                    b.ToTable("RoomAmenities");
+                });
+
+            modelBuilder.Entity("Lab12_Async_Inn_Management_System.Models.HotelRoom", b =>
+                {
+                    b.HasOne("Lab12_Async_Inn_Management_System.Models.Hotel", "Hotel")
+                        .WithMany("HotelRoom")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Lab12_Async_Inn_Management_System.Models.Room", "Room")
+                        .WithMany("HotelRoom")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("Lab12_Async_Inn_Management_System.Models.RoomAmenity", b =>
+                {
+                    b.HasOne("Lab12_Async_Inn_Management_System.Models.Amenity", "Amenity")
+                        .WithMany("RoomAmenity")
+                        .HasForeignKey("AmenityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Lab12_Async_Inn_Management_System.Models.Room", "Room")
+                        .WithMany("RoomAmenity")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Amenity");
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("Lab12_Async_Inn_Management_System.Models.Amenity", b =>
+                {
+                    b.Navigation("RoomAmenity");
+                });
+
+            modelBuilder.Entity("Lab12_Async_Inn_Management_System.Models.Hotel", b =>
+                {
+                    b.Navigation("HotelRoom");
+                });
+
+            modelBuilder.Entity("Lab12_Async_Inn_Management_System.Models.Room", b =>
+                {
+                    b.Navigation("HotelRoom");
+
+                    b.Navigation("RoomAmenity");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,6 @@
-﻿namespace Lab12_Async_Inn_Management_System.Models
+﻿using System.Collections.Generic;
+
+namespace Lab12_Async_Inn_Management_System.Models
 {
     public class Hotel
     {
@@ -9,5 +11,7 @@
         public string State { get; set; }
         public string Country { get; set; }
         public string Phone { get; set; }
+
+        public List<HotelRoom> HotelRoom { get; set; }
     }
 }
