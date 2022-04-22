@@ -34,3 +34,5 @@ It's a very useful technique for testing, since it allows dependencies to be moc
 - It allows dependencies to be mocked or stubbed out.
 - Ability to replace dependencies, without changing the class that uses it.
 - Promotes "Code to interface not to an implementation" principle.
+
+In this system we used **Interface** Dependency Injector, by creating a repositories for classes *(Hotel, Room, Amenity)*, and a signutures *(IHotel, IRoom, IAmenity)* for each one of them, to perform CRUD operations.
