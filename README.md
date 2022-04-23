@@ -36,3 +36,42 @@ It's a very useful technique for testing, since it allows dependencies to be moc
 - Promotes "Code to interface not to an implementation" principle.
 
 In this system we used **Interface** Dependency Injector, by creating a repositories for classes *(Hotel, Room, Amenity)*, and a signutures *(IHotel, IRoom, IAmenity)* for each one of them, to perform CRUD operations.
+
+## Endpoints
+
+### For Hotel
+1. GET: api/Hotels
+2. GET: api/Hotels/{id}
+3. PUT: api/Hotels/{id}
+4. POST: api/Hotels/Hotel
+5. DELETE: api/Hotels/{id}
+
+### For Room
+1. GET: api/Rooms
+2. GET: api/Rooms/{id}
+3. PUT: api/Rooms/{id}
+4. POST: api/Rooms/Room
+5. DELETE: api/Rooms/{id}
+6. POST: api/Rooms/{roomId}/{amenityId}
+7. DELETE: api/Rooms/{roomId}/{amenityId}
+
+### For Hotel Rooms
+1. GET: api/HotelRooms/{hotel_id}
+2. GET: api/HotelRooms/{hotelId}/{roomNumber}
+3. POST: api/HotelRooms/{hotel_id}/{room_id}/{room_number}
+4. DELETE: api/HotelRooms/{hotelId}/{roomId}
+5. PUT: api/HotelRooms/{hotelId}/{roomNumber}/Room
+
+### For Amenities
+1. GET: api/Amenities 
+2. GET: api/Amenities/5
+3. PUT: api/Amenities/5
+4. POST: api/Amenities
+5. DELETE: api/Amenities/5
+
+<br>
+
+- GET: Retreve data from the database.
+- POST: Indert data into the database.
+- PUT: Update data in the database.
+- DELETE: Delete data from the databse.

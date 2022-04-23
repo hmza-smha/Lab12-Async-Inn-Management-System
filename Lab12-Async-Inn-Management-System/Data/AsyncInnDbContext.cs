@@ -40,7 +40,7 @@ namespace Lab12_Async_Inn_Management_System.Data
 
             // add a FK to HotelRoom, as CK
             modelBuilder.Entity<HotelRoom>().HasKey(
-                hr => new { hr.HotelId, hr.RoomId }
+                hr => new { hr.HotelId, hr.RoomNumber }
             );
 
             //// add a FK to RoomAmenity, as CK
