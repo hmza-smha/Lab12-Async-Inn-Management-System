@@ -15,6 +15,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
+        // all paths must exist in the controller, and its impementation in repo
         private readonly IRoom _room;
 
         public RoomsController(IRoom room)
@@ -68,6 +69,21 @@ namespace Lab12_Async_Inn_Management_System.Controllers
         {
             await _room.Delete(id);
 
+            return NoContent();
+        }
+
+
+        [HttpPost("{roomId}/{amenityId}")]
+        public async Task <ActionResult> AddAmenityToRoom(int roomId, int amenityId)
+        {
+            await _room.AddAmenityToRoom(roomId, amenityId);
+            return NoContent();
+        }
+
+        [HttpDelete("{roomId}/{amenityId}")]
+        public async Task<ActionResult> RemoveAmenityFromRoom(int roomId, int amenityId)
+        {
+            await _room.RemoveAmentityFromRoom(roomId, amenityId);
             return NoContent();
         }
 

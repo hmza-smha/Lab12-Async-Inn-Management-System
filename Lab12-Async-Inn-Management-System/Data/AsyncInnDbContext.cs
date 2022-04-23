@@ -8,6 +8,8 @@ namespace Lab12_Async_Inn_Management_System.Data
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Amenity> Amenities { get; set; }
+        public DbSet<HotelRoom> HotelRooms { get; set; }
+        public DbSet<RoomAmenity> RoomAmenities { get; set; }
 
         public AsyncInnDbContext(DbContextOptions options) : base(options)
         {
@@ -34,6 +36,16 @@ namespace Lab12_Async_Inn_Management_System.Data
               new Amenity { Id = 1, Name = "TV" },
               new Amenity { Id = 2, Name = "Cofee Machine" },
               new Amenity { Id = 3, Name = "Ocean View" }
+            );
+
+            // add a FK to HotelRoom, as CK
+            modelBuilder.Entity<HotelRoom>().HasKey(
+                hr => new { hr.HotelId, hr.RoomNumber }
+            );
+
+            //// add a FK to RoomAmenity, as CK
+            modelBuilder.Entity<RoomAmenity>().HasKey(
+                ra => new { ra.RoomId, ra.AmenityId }
             );
         }
 
