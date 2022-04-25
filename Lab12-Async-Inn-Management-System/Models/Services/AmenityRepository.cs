@@ -29,7 +29,7 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
 
         public async Task<List<Amenity>> GetAmenities()
         {
-            var amenities = await _amenity.Amenities.ToListAsync();
+            var amenities = await _amenity.Amenities.Include(a => a.RoomAmenity).ToListAsync();
             return amenities;
         }
 

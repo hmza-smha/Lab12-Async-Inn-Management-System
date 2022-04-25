@@ -58,6 +58,7 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
             var roomAmenities = await _context.RoomAmenities
                 .Where(ra => ra.RoomId == id)
                 .Include(a => a.Amenity)
+                .ThenInclude(a => a.RoomAmenity)
                 .ToListAsync();
 
             // assign amenities to the got room
@@ -83,6 +84,7 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
             return await _context.Rooms
                 .Include(ra => ra.RoomAmenity) // ra is object from Rooms
                 .ThenInclude(hr => hr.Amenity) // hr is object from Room amenity so the amenity comes from RoomAmenity
+                .ThenInclude(x => x.RoomAmenity)
                 .ToListAsync();
         }
 
