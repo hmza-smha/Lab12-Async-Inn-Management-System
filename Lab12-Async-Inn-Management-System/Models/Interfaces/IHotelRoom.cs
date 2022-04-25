@@ -11,7 +11,7 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces
 
         Task<Room> RoomDetails(int hotelId, int roomNumber);
 
-        Task<Room> UpdateRoomDetails(int hotelId, int roomNumber, Room room);
+        Task<HotelRoom> UpdateRoomDetails(int roomNumber, HotelRoom hr);
 
         Task DeleteRoomFromHotel(int hotelId, int roomId);
     }
