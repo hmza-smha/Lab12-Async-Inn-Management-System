@@ -30,11 +30,11 @@ namespace Lab12_Async_Inn_Management_System.Controllers
             return Ok(hotelRooms);
         }
 
-        // POST: api/HotelRooms/5/1/1
-        [HttpPost("{hotelId}/{roomId}/{roomNumber}")]
-        public async Task<ActionResult<HotelRoom>> PostHotelRoom(int hotelId, int roomId, int roomNumber)
+        // POST: api/HotelRooms/5/HotelRoom
+        [HttpPost("{hotelId}")]
+        public async Task<ActionResult<HotelRoom>> PostHotelRoom(int hotelId, HotelRoom hr)
         {
-            var hotelRoom = await _HotelRoom.AddRoomToHotel(hotelId, roomId, roomNumber);
+            var hotelRoom = await _HotelRoom.AddRoomToHotel(hotelId, hr);
             return Ok(hotelRoom);
         }
 

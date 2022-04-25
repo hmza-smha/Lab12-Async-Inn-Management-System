@@ -14,18 +14,12 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
             _context = context;
         }
 
-        public async Task<HotelRoom> AddRoomToHotel(int hotelId, int roomId, int roomNumber)
+        public async Task<HotelRoom> AddRoomToHotel(int hotelId, HotelRoom hr)
         {
-            var hotelRoom = new HotelRoom
-            {
-                HotelId = hotelId,
-                RoomNumber = roomNumber,
-                RoomId = roomId
-            };
-
-             _context.Entry(hotelRoom).State = EntityState.Added;
+            hr.HotelId = hotelId;
+             _context.Entry(hr).State = EntityState.Added;
             await _context.SaveChangesAsync();
-            return hotelRoom;
+            return hr;
         }
 
         public async Task DeleteRoomFromHotel(int hotelId, int roomId)

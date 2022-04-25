@@ -7,7 +7,7 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces
     {
         Task<Hotel> GetHotelRooms(int hotelId);
 
-        Task<HotelRoom> AddRoomToHotel(int hotelId, int roomId, int roomNumber);
+        Task<HotelRoom> AddRoomToHotel(int hotelId, HotelRoom hr);
 
         Task<Room> RoomDetails(int hotelId, int roomNumber);
 
