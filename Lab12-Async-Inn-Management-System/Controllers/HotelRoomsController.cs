@@ -38,7 +38,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
             return Ok(hotelRoom);
         }
 
-        // DELETE: api/HotelRooms/5
+        // DELETE: api/HotelRooms/5/1
         [HttpDelete("{hotelId}/{roomId}")]
         public async Task<IActionResult> DeleteHotelRoom(int hotelId, int roomId)
         {
@@ -54,10 +54,11 @@ namespace Lab12_Async_Inn_Management_System.Controllers
             return Ok(room);
         }
 
-        [HttpPut("{hotelId}/{roomNumber}")]
-        public async Task<IActionResult> PutHotelRoom(int hotelId, int roomNumber, Room room)
+        // PUT: api/HotelRooms/1/1/Room
+        [HttpPut("{roomNumber}")]
+        public async Task<IActionResult> PutHotelRoom(int roomNumber, HotelRoom hr)
         {
-            var newRoom = await _HotelRoom.UpdateRoomDetails(hotelId, roomNumber, room);
+            var newRoom = await _HotelRoom.UpdateRoomDetails(roomNumber, hr);
             return Ok(newRoom);
         }
 
