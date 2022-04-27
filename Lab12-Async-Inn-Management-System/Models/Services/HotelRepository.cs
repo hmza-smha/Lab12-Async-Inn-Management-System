@@ -37,7 +37,10 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
 
         public async Task<List<Hotel>> GetHotels()
         {
-            var rooms = await _context.Hotels.ToListAsync();
+            var rooms = await _context.Hotels
+                .Include(h => h.HotelRoom)
+                .ThenInclude(hr => hr.Room)
+                .ToListAsync();
             return rooms;
         }
 

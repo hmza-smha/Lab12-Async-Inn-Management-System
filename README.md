@@ -75,3 +75,22 @@ In this system we used **Interface** Dependency Injector, by creating a reposito
 - POST: Indert data into the database.
 - PUT: Update data in the database.
 - DELETE: Delete data from the databse.
+
+<br>
+
+## DTOs
+
+DTO is an object made to transfer data.
+
+DTO is an object that carries data between processes. You can use this technique to facilitate communication between two systems *(like an API and your server)* without potentially exposing sensitive information.
+
+### A good DTO will:
+1. Be easy to create. *DTOs shouldn't be so complicated that you struggle to write them. (Code like this is easy to break.)*
+2. Be readable. *Anyone should be able to parse your code.*
+
+### This API contains 4 major DTOs:
+- HotelDTO
+- HotelRoomDTO
+- RoomDTO
+- AmenityDTO
+    
