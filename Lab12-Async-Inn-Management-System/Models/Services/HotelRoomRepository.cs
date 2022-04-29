@@ -28,10 +28,10 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
             return hotelRoom;
         }
 
-        public async Task DeleteRoomFromHotel(int hotelId, int roomId)
+        public async Task DeleteRoomFromHotel(int hotelId, int roomNumber)
         {
             var hotelRoom = await _context.HotelRooms
-                .Where(hr => hr.HotelId == hotelId && hr.RoomId == roomId)
+                .Where(hr => hr.HotelId == hotelId && hr.RoomNumber == roomNumber)
                 .FirstAsync();
 
             _context.Entry(hotelRoom).State = EntityState.Deleted;
@@ -43,7 +43,6 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
             return await _context.Hotels
                 .Include(h => h.HotelRoom)
                 .ThenInclude(a => a.Room)
-
                 .FirstOrDefaultAsync(h => h.Id == hotelId);
         }
 
@@ -60,16 +59,8 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
             return room;
         }
 
-
-        public async Task<HotelRoom> UpdateRoomDetails(int roomNumber, HotelRoom hr)
+        public async Task<HotelRoom> UpdateRoomDetails(int hotelId, int roomNumber, HotelRoom hr)
         {
-            //var hotelRoom = await _context.HotelRooms
-            //    .Where(hr => hr.HotelId == hotelId && hr.RoomNumber == roomNumber)
-            //    .FirstAsync();
-
-            //hotelRoom.RoomNumber = hr.RoomNumber;
-            //hotelRoom.Rate = hr.Rate;
-
             _context.Entry(hr).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 

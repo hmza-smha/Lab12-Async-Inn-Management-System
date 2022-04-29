@@ -55,10 +55,15 @@ namespace Lab12_Async_Inn_Management_System.Controllers
         }
 
         // PUT: api/HotelRooms/1/1/Room
-        [HttpPut("{roomNumber}")]
-        public async Task<IActionResult> PutHotelRoom(int roomNumber, HotelRoom hr)
+        [HttpPut("{hotelId}/{roomNumber}")]
+        public async Task<IActionResult> PutHotelRoom(int hotelId, int roomNumber, HotelRoom hr)
         {
-            var newRoom = await _HotelRoom.UpdateRoomDetails(roomNumber, hr);
+            if (hr.HotelId != hotelId || hr.RoomNumber != roomNumber)
+            {
+                return BadRequest();
+            }
+
+            var newRoom = await _HotelRoom.UpdateRoomDetails(hotelId, roomNumber, hr);
             return Ok(newRoom);
         }
 
