@@ -48,6 +48,7 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
                 .ThenInclude(x => x.RoomAmenity)
                 .ThenInclude(x => x.Amenity)
                 .ToListAsync();
+                
             return rooms;
         }
 

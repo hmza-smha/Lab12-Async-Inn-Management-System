@@ -38,7 +38,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
             {
                 return BadRequest();
             }
-
+            
             var hotelRoom = await _HotelRoom.AddRoomToHotel(hotelId, hr);
             return Ok(hotelRoom);
         }

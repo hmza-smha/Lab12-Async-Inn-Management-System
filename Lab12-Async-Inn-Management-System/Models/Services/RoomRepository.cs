@@ -57,7 +57,7 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
                 .Include(r => r.RoomAmenity)
                 .ThenInclude(ra => ra.Amenity)
                 .FirstOrDefaultAsync( x => x.Id == id);
-
+                
             return room;
         }
 
@@ -66,6 +66,7 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
             return await _context.Rooms
                 .Include(ra => ra.RoomAmenity) // ra is object from Rooms
                 .ThenInclude(hr => hr.Amenity) // hr is object from Room amenity so the amenity comes from RoomAmenity
+                .ThenInclude(x => x.RoomAmenity)
                 .ToListAsync();
         }
 
