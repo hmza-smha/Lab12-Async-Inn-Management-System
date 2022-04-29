@@ -31,6 +31,7 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
                 RoomId = roomId,
                 AmenityId = amenityId
             };
+
             _context.Entry(ra).State = EntityState.Added;
             await _context.SaveChangesAsync();
         }
@@ -52,34 +53,16 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
         public async Task<Room> GetRoom(int id)
         {
            // get the room
-           Room room = await _context.Rooms.FindAsync(id);
-
-            // get the room amenities
-            var roomAmenities = await _context.RoomAmenities
-                .Where(ra => ra.RoomId == id)
-                .Include(a => a.Amenity)
-                .ToListAsync();
-
-            // assign amenities to the got room
-            room.RoomAmenity = roomAmenities;
+           Room room = await _context.Rooms
+                .Include(r => r.RoomAmenity)
+                .ThenInclude(ra => ra.Amenity)
+                .FirstOrDefaultAsync( x => x.Id == id);
 
             return room;
-
-            /* 
-            // Same Result
-            return await _context.Rooms
-                .Include(ra => ra.RoomAmenity) // ra is object from Rooms
-                .ThenInclude(hr => hr.Amenity) // hr is object from Room amenity so the amenity comes from RoomAmenity
-                .FirstOrDefaultAsync(r => r.Id == id);
-            */
         }
 
         public async Task<List<Room>> GetRooms()
         {
-            // getting rooms without amenities
-            //var rooms = await _context.Rooms.ToListAsync();
-            //return rooms;
-
             return await _context.Rooms
                 .Include(ra => ra.RoomAmenity) // ra is object from Rooms
                 .ThenInclude(hr => hr.Amenity) // hr is object from Room amenity so the amenity comes from RoomAmenity
