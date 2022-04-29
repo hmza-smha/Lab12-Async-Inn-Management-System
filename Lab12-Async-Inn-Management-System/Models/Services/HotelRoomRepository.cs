@@ -16,16 +16,15 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
 
         public async Task<HotelRoom> AddRoomToHotel(int hotelId, HotelRoom hr)
         {
-            hr.HotelId = hotelId;
              _context.Entry(hr).State = EntityState.Added;
             await _context.SaveChangesAsync();
             return hr;
         }
 
-        public async Task DeleteRoomFromHotel(int hotelId, int roomId)
+        public async Task DeleteRoomFromHotel(int hotelId, int roomNumber)
         {
             var hotelRoom = await _context.HotelRooms
-                .Where(hr => hr.HotelId == hotelId && hr.RoomId == roomId)
+                .Where(hr => hr.HotelId == hotelId && hr.RoomNumber == roomNumber)
                 .FirstAsync();
 
             _context.Entry(hotelRoom).State = EntityState.Deleted;
@@ -37,33 +36,23 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
             return await _context.Hotels
                 .Include(h => h.HotelRoom)
                 .ThenInclude(a => a.Room)
-
+                .ThenInclude(x => x.RoomAmenity)
+                .ThenInclude(c => c.Amenity)
                 .FirstOrDefaultAsync(h => h.Id == hotelId);
         }
 
-        public async Task<Room> RoomDetails(int hotelId, int roomNumber)
+        public async Task<HotelRoom> RoomDetails(int hotelId, int roomNumber)
         {
             var hotelRoom = await _context.HotelRooms
                 .Where(hr => hr.HotelId == hotelId && hr.RoomNumber == roomNumber)
-                .FirstAsync();
+                .Include(x => x.Room)
+                .FirstOrDefaultAsync(x => x.HotelId == hotelId && x.RoomNumber == roomNumber);
 
-            var room = await _context.Rooms
-                .Where(r => r.Id == hotelRoom.RoomId)
-                .FirstAsync();
-
-            return room;
+            return hotelRoom;
         }
 
-
-        public async Task<HotelRoom> UpdateRoomDetails(int roomNumber, HotelRoom hr)
+        public async Task<HotelRoom> UpdateRoomDetails(int hotelId, int roomNumber, HotelRoom hr)
         {
-            //var hotelRoom = await _context.HotelRooms
-            //    .Where(hr => hr.HotelId == hotelId && hr.RoomNumber == roomNumber)
-            //    .FirstAsync();
-
-            //hotelRoom.RoomNumber = hr.RoomNumber;
-            //hotelRoom.Rate = hr.Rate;
-
             _context.Entry(hr).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 

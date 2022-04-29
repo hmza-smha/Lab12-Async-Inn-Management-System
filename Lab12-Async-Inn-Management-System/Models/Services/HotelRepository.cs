@@ -31,16 +31,24 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces.Services
         public async Task<Hotel> GetHotel(int id)
         {
             // The system knows we have a primary key and will use it
-            Hotel hotel = await _context.Hotels.FindAsync(id);
+            Hotel hotel = await _context.Hotels
+                .Include(x => x.HotelRoom)
+                .ThenInclude(x => x.Room)
+                .ThenInclude(x => x.RoomAmenity)
+                .ThenInclude(x => x.Amenity)
+                .FirstOrDefaultAsync(x => x.Id == id);
             return hotel;
         }
 
         public async Task<List<Hotel>> GetHotels()
         {
             var rooms = await _context.Hotels
-                .Include(h => h.HotelRoom)
-                .ThenInclude(hr => hr.Room)
+                .Include(x => x.HotelRoom)
+                .ThenInclude(x => x.Room)
+                .ThenInclude(x => x.RoomAmenity)
+                .ThenInclude(x => x.Amenity)
                 .ToListAsync();
+                
             return rooms;
         }
 

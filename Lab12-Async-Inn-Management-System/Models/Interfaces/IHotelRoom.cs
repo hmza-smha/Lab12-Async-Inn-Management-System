@@ -9,10 +9,10 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces
 
         Task<HotelRoom> AddRoomToHotel(int hotelId, HotelRoom hr);
 
-        Task<Room> RoomDetails(int hotelId, int roomNumber);
+        Task<HotelRoom> RoomDetails(int hotelId, int roomNumber);
 
-        Task<HotelRoom> UpdateRoomDetails(int roomNumber, HotelRoom hr);
+        Task<HotelRoom> UpdateRoomDetails(int hotelId, int roomNumber, HotelRoom hr);
 
-        Task DeleteRoomFromHotel(int hotelId, int roomId);
+        Task DeleteRoomFromHotel(int hotelId, int roomNumber);
     }
 }

@@ -73,14 +73,14 @@ namespace Lab12_Async_Inn_Management_System.Controllers
         }
 
 
-        [HttpPost("{roomId}/{amenityId}")]
+        [HttpPost("{roomId}/Amenity/{amenityId}")]
         public async Task <ActionResult> AddAmenityToRoom(int roomId, int amenityId)
         {
             await _room.AddAmenityToRoom(roomId, amenityId);
             return NoContent();
         }
 
-        [HttpDelete("{roomId}/{amenityId}")]
+        [HttpDelete("{roomId}/Amenity/{amenityId}")]
         public async Task<ActionResult> RemoveAmenityFromRoom(int roomId, int amenityId)
         {
             await _room.RemoveAmentityFromRoom(roomId, amenityId);
