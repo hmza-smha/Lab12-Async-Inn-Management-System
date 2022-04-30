@@ -93,4 +93,16 @@ DTO is an object that carries data between processes. You can use this technique
 - HotelRoomDTO
 - RoomDTO
 - AmenityDTO
-    
+
+### GET Responces
+GET: api/Hotels
+![image](/images/hotels%20response.png)
+
+GET: api/Rooms
+![image](/images/rooms%20response.png)
+
+GET: api/HotelRooms/1/Rooms
+![image](/images/HotelRooms%20response.png)
+
+GET: api/Amenities
+![image](/images/amenities%20response.png)
