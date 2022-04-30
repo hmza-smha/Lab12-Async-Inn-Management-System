@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Lab12_Async_Inn_Management_System.Models.DTOs;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Lab12_Async_Inn_Management_System.Models.Interfaces
@@ -7,9 +8,9 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces
     {
         Task<Hotel> Create(Hotel hotel);
 
-        Task<List<Hotel>> GetHotels();
+        Task<List<HotelDTO>> GetHotels();
 
-        Task<Hotel> GetHotel(int id);
+        Task<HotelDTO> GetHotel(int id);
 
         Task<Hotel> UpdateHotel(int id, Hotel hotel);
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Lab12_Async_Inn_Management_System.Data;
 using Lab12_Async_Inn_Management_System.Models;
 using Lab12_Async_Inn_Management_System.Models.Interfaces;
+using Lab12_Async_Inn_Management_System.Models.DTOs;
 
 namespace Lab12_Async_Inn_Management_System.Controllers
 {
@@ -30,11 +31,19 @@ namespace Lab12_Async_Inn_Management_System.Controllers
             return Ok(hotelRooms);
         }
 
+        // GET: api/HotelRooms/1/Rooms/1
+        [HttpGet("{hotelId}/Rooms/{roomNumber}")]
+        public async Task<IActionResult> GetRoomDetails(int hotelId, int roomNumber)
+        {
+            var room = await _HotelRoom.RoomDetails(hotelId, roomNumber);
+            return Ok(room);
+        }
+
         // POST: api/HotelRooms/5/Rooms
         [HttpPost("{hotelId}/Rooms")]
-        public async Task<ActionResult<HotelRoom>> PostHotelRoom(int hotelId, HotelRoom hr)
+        public async Task<ActionResult<HotelRoomDTO>> PostHotelRoom(int hotelId, HotelRoomDTO hr)
         {
-            if(hotelId != hr.HotelId)
+            if(hotelId != hr.HotelID)
             {
                 return BadRequest();
             }
@@ -51,19 +60,11 @@ namespace Lab12_Async_Inn_Management_System.Controllers
             return NoContent();
         }
 
-        // GET: api/HotelRooms/1/Rooms/1
-        [HttpGet("{hotelId}/Rooms/{roomNumber}")]
-        public async Task<IActionResult> GetRoomDetails(int hotelId, int roomNumber)
-        {
-            var room = await _HotelRoom.RoomDetails(hotelId, roomNumber);
-            return Ok(room);
-        }
-
         // PUT: api/HotelRooms/1/Rooms/1/
         [HttpPut("{hotelId}/Rooms/{roomNumber}")]
-        public async Task<IActionResult> PutHotelRoom(int hotelId, int roomNumber, HotelRoom hr)
+        public async Task<IActionResult> PutHotelRoom(int hotelId, int roomNumber, HotelRoomDTO hr)
         {
-            if (hr.HotelId != hotelId || hr.RoomNumber != roomNumber)
+            if (hr.HotelID != hotelId || hr.RoomNumber != roomNumber)
             {
                 return BadRequest();
             }

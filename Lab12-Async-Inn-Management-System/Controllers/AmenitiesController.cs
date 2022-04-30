@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Lab12_Async_Inn_Management_System.Data;
 using Lab12_Async_Inn_Management_System.Models;
 using Lab12_Async_Inn_Management_System.Models.Interfaces;
+using Lab12_Async_Inn_Management_System.Models.DTOs;
 
 namespace Lab12_Async_Inn_Management_System.Controllers
 {
@@ -41,9 +42,9 @@ namespace Lab12_Async_Inn_Management_System.Controllers
         // PUT: api/Amenities/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAmenity(int id, Amenity amenity)
+        public async Task<IActionResult> PutAmenity(int id, AmenityDTO amenity)
         {
-            if (id != amenity.Id)
+            if (id != amenity.ID)
             {
                 return BadRequest();
             }
@@ -55,7 +56,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
         // POST: api/Amenities
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Amenity>> PostAmenity(Amenity amenity)
+        public async Task<ActionResult<Amenity>> PostAmenity(AmenityDTO amenity)
         {
             var newAmenity = await _amenity.Create(amenity);
             return Ok(newAmenity);
