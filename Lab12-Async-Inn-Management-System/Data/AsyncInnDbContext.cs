@@ -1,9 +1,10 @@
 ﻿using Lab12_Async_Inn_Management_System.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lab12_Async_Inn_Management_System.Data
 {
-    public class AsyncInnDbContext : DbContext
+    public class AsyncInnDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Room> Rooms { get; set; }
@@ -18,7 +19,7 @@ namespace Lab12_Async_Inn_Management_System.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // This calls the base method, but does nothing
-            // base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Hotel>().HasData(
               new Hotel { Id = 1, Name = "Async Inn", City = "Amman", Country = "Jordan", Phone = "+962", StAddress = "St. 512", State = "Available" },
