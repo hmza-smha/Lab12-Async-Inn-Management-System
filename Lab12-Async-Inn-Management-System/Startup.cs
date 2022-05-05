@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,6 @@ namespace Lab12_Async_Inn_Management_System
             services.AddTransient<IAmenity, AmenityRepository>();
             services.AddTransient<IHotelRoom, HotelRoomRepository>();
 
-
             // Register our DbContext with the app within ConfigureServices()
             // services.AddDbContext() is called as a generic with our DbContext as the type
             // This will allow us to set options, such as connecting to our SQL Server
@@ -49,6 +49,16 @@ namespace Lab12_Async_Inn_Management_System
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
+            });
+
+            services.AddSwaggerGen(options =>
+            {
+                // Make sure get the "using Statement"
+                options.SwaggerDoc("v1", new OpenApiInfo()
+                {
+                    Title = "Async Inn Demo",
+                    Version = "v1",
+                });
             });
 
         }
@@ -60,6 +70,15 @@ namespace Lab12_Async_Inn_Management_System
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger(options => {
+                options.RouteTemplate = "/api/{documentName}/swagger.json";
+            });
+
+            app.UseSwaggerUI(options => {
+                options.SwaggerEndpoint("/api/v1/swagger.json", "Async Inn Demo");
+                options.RoutePrefix = "docs";
+            });
 
             app.UseRouting();
 
