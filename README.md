@@ -37,13 +37,11 @@ It's a very useful technique for testing, since it allows dependencies to be moc
 
 In this system we used **Interface** Dependency Injector, by creating a repositories for classes *(Hotel, Room, Amenity)*, and a signutures *(IHotel, IRoom, IAmenity)* for each one of them, to perform CRUD operations.
 
-### Identity
-Identity is the ability to add **Authentication** and **Authorization** to the application. This includes registrations, logins, restricted access to specific members, and authentication through Facebook, Google, Twitter, etc…
+### Swagger Testing
+Swagger (OpenAPI) is a language-agnostic specification for describing REST APIs. It allows both computers and humans to understand the capabilities of a REST API without direct access to the source code. Its main goals are to:
 
-ASP.NET Core Identity was created to help with the security and management of users. It provides this abstraction layer between the application and the users/role data. We can use the API in it’s entirety, or just bits and pieces as we need (such as the salting/hashing by itself) or email services. There is a lot of flexibility within ASP.NET Core Identity. We have the ability to take or leave whatever we want. Identity combines well with EFCore and SQL Server.
-
-**Register**
-![image](./images/reg.png)
+- Minimize the amount of work needed to connect decoupled services.
+- Reduce the amount of time needed to accurately document a service.
 
 ## Endpoints
 
