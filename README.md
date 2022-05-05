@@ -37,6 +37,12 @@ It's a very useful technique for testing, since it allows dependencies to be moc
 
 In this system we used **Interface** Dependency Injector, by creating a repositories for classes *(Hotel, Room, Amenity)*, and a signutures *(IHotel, IRoom, IAmenity)* for each one of them, to perform CRUD operations.
 
+### Swagger Testing
+Swagger (OpenAPI) is a language-agnostic specification for describing REST APIs. It allows both computers and humans to understand the capabilities of a REST API without direct access to the source code. Its main goals are to:
+
+- Minimize the amount of work needed to connect decoupled services.
+- Reduce the amount of time needed to accurately document a service.
+
 ## Endpoints
 
 ### For Hotel
