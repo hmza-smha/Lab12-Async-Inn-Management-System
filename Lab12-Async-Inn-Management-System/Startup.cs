@@ -1,9 +1,12 @@
 using Lab12_Async_Inn_Management_System.Data;
+using Lab12_Async_Inn_Management_System.Models;
 using Lab12_Async_Inn_Management_System.Models.Interfaces;
 using Lab12_Async_Inn_Management_System.Models.Interfaces.Services;
+using Lab12_Async_Inn_Management_System.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +34,16 @@ namespace Lab12_Async_Inn_Management_System
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                // There are other options like this
+            })
+            .AddEntityFrameworkStores<AsyncInnDbContext>();
+
+            services.AddTransient<IUserService, IdentityUserService>();
+
             services.AddControllers().AddNewtonsoftJson(
                 opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
@@ -40,6 +53,7 @@ namespace Lab12_Async_Inn_Management_System
             services.AddTransient<IHotel, HotelRepository>();
             services.AddTransient<IAmenity, AmenityRepository>();
             services.AddTransient<IHotelRoom, HotelRoomRepository>();
+            services.AddTransient<IUserService, IdentityUserService>();
 
             // Register our DbContext with the app within ConfigureServices()
             // services.AddDbContext() is called as a generic with our DbContext as the type
