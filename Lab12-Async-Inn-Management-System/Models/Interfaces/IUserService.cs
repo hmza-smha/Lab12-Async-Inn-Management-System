@@ -6,7 +6,7 @@ namespace Lab12_Async_Inn_Management_System.Models.Interfaces
 {
     public interface IUserService
     {
-        Task<ApplicationUser> Register(RegisterUserDTO data);
-        public Task<UserDTO> Authenticate(LoginData data);
+        Task<ApplicationUser> Register(RegisterUserDTO data, ModelStateDictionary modelState);
+        public Task<UserDTO> Authenticate(LoginData data, ModelStateDictionary modelState);
     }
 }

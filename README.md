@@ -37,6 +37,7 @@ It's a very useful technique for testing, since it allows dependencies to be moc
 
 In this system we used **Interface** Dependency Injector, by creating a repositories for classes *(Hotel, Room, Amenity)*, and a signutures *(IHotel, IRoom, IAmenity)* for each one of them, to perform CRUD operations.
 
+=======
 ### Identity
 Identity is the ability to add **Authentication** and **Authorization** to the application. This includes registrations, logins, restricted access to specific members, and authentication through Facebook, Google, Twitter, etc…
 
