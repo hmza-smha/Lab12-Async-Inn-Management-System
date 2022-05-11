@@ -18,26 +18,31 @@ namespace Lab12_Async_Inn_Management_System.Models.Services
             _signInManager = signInManager;
         }
 
-        public async Task<UserDTO> Authenticate(LoginData data)
+        public async Task<UserDTO> Authenticate(LoginData data, ModelStateDictionary modelState)
         {
             var user = await _userManager.FindByNameAsync(data.UserName);
 
             if (user == null)
-                throw new Exception("User does not exist in the database!");
-
-            if(user.PasswordHash != data.Password)
-                throw new Exception("Wrong Password!");
-
-            await _signInManager.SignInAsync(user, isPersistent: false);
-
-            return new UserDTO
             {
-                Id = user.Id,
-                Username = user.UserName
-            };
+                return null;
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user, data.Password, false, false);
+
+            if (result.Succeeded)
+            {
+                return new UserDTO
+                {
+                    Id = user.Id,
+                    Username = user.UserName
+                };
+            }
+
+            modelState.AddModelError(string.Empty, "Invalid Login");
+            return null;
         }
 
-        public async Task<ApplicationUser> Register(RegisterUserDTO data)
+        public async Task<ApplicationUser> Register(RegisterUserDTO data, ModelStateDictionary modelState)
         {
             //throw new NotImplementedException();
 
@@ -54,8 +59,20 @@ namespace Lab12_Async_Inn_Management_System.Models.Services
             {
                 return user;
             }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    var errorKey =
+                        error.Code.Contains("Password") ? nameof(data.Password) :
+                        error.Code.Contains("Email") ? nameof(data.Email) :
+                        error.Code.Contains("UserName") ? nameof(data.Username) :
+                        "";
+                    modelState.AddModelError(errorKey, error.Description);
+                }
+                return null;
+            }
 
-            return null;
 
         }
     }

@@ -20,15 +20,44 @@ namespace Lab12_Async_Inn_Management_System.Controllers
         }
 
         [HttpPost("Authenticate")]
-        public Task<UserDTO> Login(LoginData data)
+        public async Task<ActionResult> Login(LoginData data)
         {
-            return _user.Authenticate(data);
+            try
+            {
+                var result = await _user.Authenticate(data, this.ModelState);
+                if (result == null)
+                {
+                    return BadRequest("Username or password is wrong!");
+                }
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+            return Ok(data);
+
         }
 
         [HttpPost("Register")]
-        public Task<ApplicationUser> Register(RegisterUserDTO data)
+        public async Task<ActionResult> Register(RegisterUserDTO data)
         {
-            return _user.Register(data);
+            try
+            {
+                await _user.Register(data, this.ModelState);
+                if (ModelState.IsValid)
+                {
+                    return Ok("Registered done");
+
+                }
+                return BadRequest(new ValidationProblemDetails(ModelState));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
         }
     }
 }
