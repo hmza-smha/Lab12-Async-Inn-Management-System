@@ -9,11 +9,13 @@ using Lab12_Async_Inn_Management_System.Data;
 using Lab12_Async_Inn_Management_System.Models;
 using Lab12_Async_Inn_Management_System.Models.Interfaces;
 using Lab12_Async_Inn_Management_System.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab12_Async_Inn_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AmenitiesController : ControllerBase
     {
         private readonly IAmenity _amenity;
@@ -25,6 +27,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
 
         // GET: api/Amenities
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenities()
         {
             var aminities =  await _amenity.GetAmenities();
@@ -33,6 +36,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
 
         // GET: api/Amenities/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Amenity>> GetAmenity(int id)
         {
             var amenity = await _amenity.GetAmenity(id);
@@ -42,6 +46,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
         // PUT: api/Amenities/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "DistrictManager")]
         public async Task<IActionResult> PutAmenity(int id, AmenityDTO amenity)
         {
             if (id != amenity.ID)
@@ -56,6 +61,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
         // POST: api/Amenities
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "DistrictManager")]
         public async Task<ActionResult<Amenity>> PostAmenity(AmenityDTO amenity)
         {
             var newAmenity = await _amenity.Create(amenity);
@@ -64,6 +70,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
 
         // DELETE: api/Amenities/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "DistrictManager")]
         public async Task<IActionResult> DeleteAmenity(int id)
         {
             await _amenity.Delete(id);
