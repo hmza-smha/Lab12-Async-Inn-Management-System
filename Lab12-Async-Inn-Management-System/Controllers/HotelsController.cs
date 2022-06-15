@@ -8,11 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Lab12_Async_Inn_Management_System.Data;
 using Lab12_Async_Inn_Management_System.Models;
 using Lab12_Async_Inn_Management_System.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab12_Async_Inn_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class HotelsController : ControllerBase
     {
         private readonly IHotel _hotel;
@@ -24,6 +26,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
 
         // GET: api/Hotels
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
         {
             var hotels = await _hotel.GetHotels();
@@ -32,6 +35,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Hotel>> GetHotel(int id)
         {
             var hotel = await _hotel.GetHotel(id);
@@ -41,6 +45,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "DistrictManager")]
         public async Task<IActionResult> PutHotel(int id, Hotel hotel)
         {
             if (id != hotel.Id)
@@ -55,6 +60,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
         // POST: api/Hotels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "DistrictManager")]
         public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
         {
             Hotel newHotel = await _hotel.Create(hotel);
@@ -63,6 +69,7 @@ namespace Lab12_Async_Inn_Management_System.Controllers
 
         // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "DistrictManager")]
         public async Task<IActionResult> DeleteHotel(int id)
         {
             await _hotel.Delete(id);

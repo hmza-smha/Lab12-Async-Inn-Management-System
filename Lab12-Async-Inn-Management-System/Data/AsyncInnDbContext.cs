@@ -1,4 +1,5 @@
 ﻿using Lab12_Async_Inn_Management_System.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -48,6 +49,23 @@ namespace Lab12_Async_Inn_Management_System.Data
             modelBuilder.Entity<RoomAmenity>().HasKey(
                 ra => new { ra.RoomId, ra.AmenityId }
             );
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = "DistrictManager",
+                Name = "DistrictManager",
+                NormalizedName = "DistrictManager"
+            }, new IdentityRole
+            {
+                Id = "PropertyManager",
+                Name = "PropertyManager",
+                NormalizedName = "PropertyManager"
+            }, new IdentityRole
+            {
+                Id = "Agent",
+                Name = "Agent",
+                NormalizedName = "Agent"
+            });
         }
 
     }

@@ -11,11 +11,15 @@ namespace Lab12_Async_Inn_Management_System.Models.Services
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private RoleManager<ApplicationUser> _roleManager;
 
-        public IdentityUserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public IdentityUserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+            RoleManager<ApplicationUser> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
+
         }
 
         public async Task<UserDTO> Authenticate(LoginData data, ModelStateDictionary modelState)
@@ -57,6 +61,9 @@ namespace Lab12_Async_Inn_Management_System.Models.Services
 
             if (result.Succeeded)
             {
+                //await _userManager.AddToRoleAsync(user, "DistrictManager");
+                //await _userManager.AddToRoleAsync(user, "PropertyManager");
+                //await _userManager.AddToRoleAsync(user, "Agent");
                 return user;
             }
             else
