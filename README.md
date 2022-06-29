@@ -1,5 +1,7 @@
 # Async Inn Management System
 
+[DEMO](https://async-inn-management-system.azurewebsites.net/docs/index.html)
+
 Bulding a RESTful API hotel server that will increase the managmement of the assets in the hotel.
 
 Increatse the ability to modify and manage rooms, amenities, and new hotel locations built.
